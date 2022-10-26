@@ -20,10 +20,12 @@ class Docentes(models.Model):
         return self.nombre
     
 class Registros(models.Model):
-    fecha = models.DateTimeField('date published')
+    fecha = models.DateField('Fecha')
     docentes_id = models.ForeignKey(Docentes, on_delete=models.CASCADE)
     laboratorio_id = models.ForeignKey(Laboratorios, on_delete=models.CASCADE)
     carreras_id = models.ForeignKey(Carreras, on_delete=models.CASCADE)
-    hora_inicio = models.DateTimeField('date published')
-    hora_fin = models.DateTimeField('date published')
+    hora_inicio = models.TimeField('Hora Entrada')
+    hora_fin = models.TimeField('Hora Salida')
+    def __str__(self):
+        return self.fecha
     
