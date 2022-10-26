@@ -16,6 +16,8 @@ class Carreras(models.Model):
 class Docentes(models.Model):
     nombre = models.CharField(max_length=200)
     asignatura_id = models.ForeignKey(Asignaturas, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nombre
     
 class Registros(models.Model):
     fecha = models.DateTimeField('date published')
