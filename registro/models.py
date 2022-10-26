@@ -2,10 +2,16 @@ from django.db import models
 
 class Asignaturas(models.Model):
     descripcion = models.CharField(max_length=200)
+    def __str__(self):
+        return self.descripcion
 class Laboratorios(models.Model):
     descripcion = models.CharField(max_length=200)
+    def __str__(self):
+        return self.descripcion
 class Carreras(models.Model):
-    descripcion = models.CharField(max_length=200) 
+    descripcion = models.CharField(max_length=200)
+    def __str__(self):
+        return self.descripcion
     
 class Docentes(models.Model):
     nombre = models.CharField(max_length=200)
