@@ -27,5 +27,5 @@ class Registros(models.Model):
     hora_inicio = models.TimeField('Hora Entrada')
     hora_fin = models.TimeField('Hora Salida')
     def __str__(self):
-        return self.fecha
+         return self.fecha.strftime('%Y-%m-%d')
     
