@@ -1,0 +1,57 @@
+version: "3.9"
+services: 
+  db:
+    image: postgres
+    container_name: postgresdb
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+    volumes:
+      - clasedb:/var/lib/postgresql/data
+      - ./sirelab:/sirelab
+    ports:
+      - 5432:5432
+    networks:
+      - clase
+      - default
+
+  web:
+    build: .
+    command:  sh -c "python manage.py migrate && python crear_superusuario.py && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    volumes:
+      - .:/sirelab
+    ports:
+      - 8000:8000
+    networks:
+      - clase
+      - default
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmindb
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@test.com
+      PGADMIN_DEFAULT_PASSWORD: 12345678
+    volumes:
+      - pgavolumen:/var/lib/pgadmin
+      - ./sirelab:/sirelab
+    ports:
+      - 8082:80
+    networks:
+      - clase
+      - default
+    depends_on:
+      - db
+
+networks:
+  clase:
+    driver: bridge
+    name: clase
+
+volumes:
+  clasedb:
+  pgavolumen:
